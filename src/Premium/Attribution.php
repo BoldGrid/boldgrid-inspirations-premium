@@ -62,10 +62,6 @@ class Attribution {
 		);
 
 		Library\Filter::add( $this );
-
-		if ( $this->getLicensed() ) {
-			add_filter( 'boldgrid_theme_framework_config', array( $this, 'specialThanksControl' ) );
-		}
 	}
 
 	/**
@@ -116,14 +112,18 @@ class Attribution {
 	/**
 	 * Adds required customizer footer configurations.
 	 *
-	 * @nohook
+	 * @hook boldgrid_theme_framework_config
+	 *
+	 * @priority 5
 	 *
 	 * @param  array $configs BGTFW Configurations.
 	 *
 	 * @return array $configs BGTFW Configurations.
 	 */
 	public function specialThanksControl( $configs ) {
-		$configs['customizer-options']['required']['boldgrid_enable_footer'][] = 'hide_special_thanks_attribution';
+		if ( $this->getLicensed() ) {
+			$configs['customizer-options']['required']['boldgrid_enable_footer'][] = 'hide_special_thanks_attribution';
+		}
 		return $configs;
 	}
 
