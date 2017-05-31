@@ -1,0 +1,35 @@
+{
+    "name": "boldgrid/boldgrid-inspirations-premium",
+    "description": "Premium BoldGrid Inspirations Features.",
+    "type": "library",
+    "license": "GPL2.0",
+    "authors": [
+        {
+            "name": "Tim Elsass",
+            "email": "dev@tim.ph",
+            "homepage": "http://tim.ph",
+            "role": "Developer"
+        },
+        {
+            "name": "Rafael Ramos",
+            "homepage": "http://rafael-ramos.com",
+            "role": "Developer"
+        },
+        {
+            "name": "Joe",
+            "role": "Developer"
+        },
+        {
+            "name": "bwmarkle",
+            "role": "Developer"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "Boldgrid\\Inspirations\\Premium\\": "src/Premium"
+        }
+    },
+    "require": {
+        "boldgrid/library": "dev-dev"
+    }
+}
