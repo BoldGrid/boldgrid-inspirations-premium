@@ -211,7 +211,7 @@ class Attribution {
 
 		$attribution = $value;
 		if ( ! get_theme_mod( 'boldgrid_enable_footer', true ) && $this->getLicensed() ) {
-			$attribution .= '';
+			$attribution = '';
 		} else {
 			$attribution = $value;
 		}
