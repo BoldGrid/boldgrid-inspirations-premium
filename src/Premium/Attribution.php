@@ -61,10 +61,10 @@ class Attribution {
 			)
 		);
 
-		Library\Filter::add();
+		Library\Filter::add( $this );
 
 		if ( $this->getLicensed() ) {
-			add_filter( 'boldgrid_theme_framework_config', array( $this, 'partnerLink' ), 5 );
+			add_filter( 'boldgrid_theme_framework_config', array( $this, 'specialThanksControl' ) );
 		}
 	}
 
@@ -93,7 +93,7 @@ class Attribution {
 	/**
 	 * Adds required customizer footer configurations.
 	 *
-	 * @hook partner_attribution_configs
+	 * @hook boldgrid_theme_framework_config
 	 *
 	 * @priority 5
 	 *
@@ -101,7 +101,7 @@ class Attribution {
 	 *
 	 * @return array $configs BGTFW Configurations.
 	 */
-	public function partnerLink( $configs ) {
+	public function partnerControl( $configs ) {
 
 		$configs['customizer-options']['required']['boldgrid_enable_footer'] = array_values( array_diff( $configs['customizer-options']['required']['boldgrid_enable_footer'], array( 'hide_partner_attribution' ) ) );
 		$reseller = get_option( 'boldgrid_reseller', false );
@@ -122,7 +122,7 @@ class Attribution {
 	 *
 	 * @return array $configs BGTFW Configurations.
 	 */
-	public function specialThanks( $configs ) {
+	public function specialThanksControl( $configs ) {
 		$configs['customizer-options']['required']['boldgrid_enable_footer'][] = 'hide_special_thanks_attribution';
 		return $configs;
 	}
@@ -166,7 +166,7 @@ class Attribution {
 			if ( ! get_theme_mod( 'hide_partner_attribution' ) || is_customize_preview() ) {
 				if ( ! empty( $reseller_data['reseller_title'] ) ) {
 					$link = sprintf(
-						'<span class="link reseller-attribution-link">%s <a href="%s" rel="nofollow" target="_blank">%s</a></span>',
+						'<span class="link partner-attribution-link">%s <a href="%s" rel="nofollow" target="_blank">%s</a></span>',
 						__( 'Support from', 'bgtfw' ),
 						$reseller_data['reseller_website_url'],
 						$reseller_data['reseller_title']
@@ -196,27 +196,27 @@ class Attribution {
 
 		// If option is available use that or try to find the page by slug name.
 		if ( ! empty( $attribution_data['page']['id'] ) ) {
-			$link = '<a href="' . get_permalink( $attribution_data['page']['id'] ) . '">' . $special_thanks . '</a>';
+			$attribution = '<a href="' . get_permalink( $attribution_data['page']['id'] ) . '">' . $special_thanks . '</a>';
 		} elseif ( $attribution_page ) {
-			$link = '<a href="' . get_site_url( null, 'attribution' ) . '">' . $special_thanks . '</a>';
+			$attribution .= '<a href="' . get_site_url( null, 'attribution' ) . '">' . $special_thanks . '</a>';
 		} else {
-			$link = '';
+			$attribution .= '';
 		}
 
 		$this->getLicensed() ? : set_theme_mod( 'hide_special_thanks_attribution', false );
 		$value = get_theme_mod( 'hide_special_thanks_attribution', false );
 
-		$value = $value ? '<span class="link special-thanks-attribution-link hidden">' . $link . '</span>' :
-			'<span class="link special-thanks-attribution-link">' . $link . '</span>';
+		$value = $value ? '<span class="link special-thanks-attribution-link hidden">' . $attribution . '</span>' :
+			'<span class="link special-thanks-attribution-link">' . $attribution . '</span>';
 
-		$link = $value;
+		$attribution = $value;
 		if ( ! get_theme_mod( 'boldgrid_enable_footer', true ) && $this->getLicensed() ) {
-			$link = '';
+			$attribution .= '';
 		} else {
-			$link = $value;
+			$attribution = $value;
 		}
 
-		return $link;
+		return $link . $attribution;
 	}
 
 	/**
