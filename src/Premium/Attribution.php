@@ -210,7 +210,7 @@ class Attribution {
 			$value = $value ? '<span class="link special-thanks-attribution-link hidden">' . $attribution . '</span>' :
 				'<span class="link special-thanks-attribution-link">' . $attribution . '</span>';
 		} else {
-			$value = ! $value ? : '';
+			$value = $value ? : '';
 		}
 
 		$attribution = $value;
