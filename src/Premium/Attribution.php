@@ -206,8 +206,12 @@ class Attribution {
 		$this->getLicensed() ? : set_theme_mod( 'hide_special_thanks_attribution', false );
 		$value = get_theme_mod( 'hide_special_thanks_attribution', false );
 
-		$value = $value ? '<span class="link special-thanks-attribution-link hidden">' . $attribution . '</span>' :
-			'<span class="link special-thanks-attribution-link">' . $attribution . '</span>';
+		if ( is_customize_preview() ) {
+			$value = $value ? '<span class="link special-thanks-attribution-link hidden">' . $attribution . '</span>' :
+				'<span class="link special-thanks-attribution-link">' . $attribution . '</span>';
+		} else {
+			$value = ! $value ? : '';
+		}
 
 		$attribution = $value;
 		if ( ! get_theme_mod( 'boldgrid_enable_footer', true ) && $this->getLicensed() ) {
