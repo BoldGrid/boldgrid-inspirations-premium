@@ -206,11 +206,11 @@ class Attribution {
 		$this->getLicensed() ? : set_theme_mod( 'hide_special_thanks_attribution', false );
 		$value = get_theme_mod( 'hide_special_thanks_attribution', false );
 
+		$shown = '<span class="link special-thanks-attribution-link">' . $attribution . '</span>';
 		if ( is_customize_preview() ) {
-			$value = $value ? '<span class="link special-thanks-attribution-link hidden">' . $attribution . '</span>' :
-				'<span class="link special-thanks-attribution-link">' . $attribution . '</span>';
+			$value = $value ? '<span class="link special-thanks-attribution-link hidden">' . $attribution . '</span>' : $shown;
 		} else {
-			$value = $value ? : '';
+			$value = $value ? '' : $shown;
 		}
 
 		$attribution = $value;
