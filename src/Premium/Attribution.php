@@ -37,7 +37,9 @@ class Attribution {
 	 */
 	public function __construct() {
 		$license = new Library\License;
-		$this->licensed = $this->setLicensed( $license->getValid() );
+		$type = $license->getValid() && $license->isPremium( 'boldgrid-inspirations' );
+
+		$this->licensed = $this->setLicensed( $type );
 		$this->controls = $this->setControls(
 			array(
 				'reseller_control' => array(
