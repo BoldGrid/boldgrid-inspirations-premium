@@ -45,7 +45,7 @@ class Attribution {
 				'reseller_control' => array(
 					'type'        => 'checkbox',
 					'settings'     => 'hide_partner_attribution',
-					'transport'   => 'postMessage',
+					'transport'   => 'refresh',
 					'label'       => __( 'Hide Partner Attribution', 'boldgrid-inspirations' ),
 					'section'     => 'boldgrid_footer_panel',
 					'default'     => false,
@@ -54,7 +54,7 @@ class Attribution {
 				'special_thanks_control' => array(
 					'type'        => 'checkbox',
 					'settings'     => 'hide_special_thanks_attribution',
-					'transport'   => 'postMessage',
+					'transport'   => 'refresh',
 					'label'       => __( 'Hide Special Thanks Link', 'boldgrid-inspirations' ),
 					'section'     => 'boldgrid_footer_panel',
 					'default'     => false,
@@ -165,7 +165,7 @@ class Attribution {
 		if ( get_theme_mod( 'boldgrid_enable_footer', true ) ) {
 			$reseller_data = get_option( 'boldgrid_reseller', false );
 			// Authorized Reseller/Partner Link.
-			if ( ! get_theme_mod( 'hide_partner_attribution' ) || is_customize_preview() ) {
+			if ( ! get_theme_mod( 'hide_partner_attribution' ) ) {
 				if ( ! empty( $reseller_data['reseller_title'] ) ) {
 					$link = sprintf(
 						'<span class="link partner-attribution-link">%s <a href="%s" rel="nofollow" target="_blank">%s</a></span>',
