@@ -26,9 +26,7 @@ class Attribution {
 	 * @var bool $licensed Licensed plugin?
 	 * @var array $controls Controls array.
 	 */
-	protected
-		$licensed,
-		$controls;
+	protected $licensed;
 
 	/**
 	 * Initialize class and set properties.
@@ -40,28 +38,6 @@ class Attribution {
 		$type = $license->getValid() && $license->isPremium( 'boldgrid-inspirations' );
 
 		$this->licensed = $this->setLicensed( $type );
-		$this->controls = $this->setControls(
-			array(
-				'reseller_control' => array(
-					'type'        => 'checkbox',
-					'settings'     => 'hide_partner_attribution',
-					'transport'   => 'refresh',
-					'label'       => __( 'Hide Partner Attribution', 'boldgrid-inspirations' ),
-					'section'     => 'boldgrid_footer_panel',
-					'default'     => false,
-					'priority'    => 50,
-				),
-				'special_thanks_control' => array(
-					'type'        => 'checkbox',
-					'settings'     => 'hide_special_thanks_attribution',
-					'transport'   => 'refresh',
-					'label'       => __( 'Hide Special Thanks Link', 'boldgrid-inspirations' ),
-					'section'     => 'boldgrid_footer_panel',
-					'default'     => false,
-					'priority'    => 60,
-				)
-			)
-		);
 
 		add_action( 'customize_register', array( $this, 'addSettings' ) );
 
@@ -77,17 +53,6 @@ class Attribution {
 	 */
 	private function setLicensed( $licensed ) {
 		return $this->licensed = $licensed;
-	}
-
-	/**
-	 * Sets the controls array.
-	 *
-	 * @since 1.4.3
-	 *
-	 * @param array $controls Controls array.
-	 */
-	private function setControls( $controls ) {
-		return $this->controls = $controls;
 	}
 
 	/**
@@ -240,14 +205,5 @@ class Attribution {
 	 */
 	protected function getLicensed() {
 		return $this->licensed;
-	}
-
-	/**
-	 * Gets $controls class property.
-	 *
-	 * @return array $controls Controls array.
-	 */
-	protected function getControls() {
-		return $this->controls;
 	}
 }
