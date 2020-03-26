@@ -63,6 +63,8 @@ class Attribution {
 			)
 		);
 
+		add_action( 'customize_register', array( $this, 'addSettings' ) );
+
 		Library\Filter::add( $this );
 	}
 
@@ -130,23 +132,29 @@ class Attribution {
 	}
 
 	/**
-	 * Adds attribution link controls to theme customizer.
+	 * Adds attribution settings
 	 *
-	 * @hook kirki/fields
-	 *
-	 * @param array $controls [description]
+	 * @since SINCEVERSION
 	 */
-	public function addControls( $controls ) {
-		$controls = array_merge( $controls, $this->getControls() );
-
-		if ( ! get_option( 'boldgrid_reseller', false ) ) {
-			unset( $controls['reseller_control'] );
-		}
-		if ( ! $this->getLicensed() ) {
-			unset( $controls['special_thanks_control'] );
-		}
-
-		return $controls;
+	public function addSettings( $wp_customize ) {
+		$wp_customize->add_setting(
+			'hide_partner_attribution', array(
+				'default'           => false,
+				'type'              => 'theme_mod',
+				'sanitize_callback' => function( $checked ) {
+					return ( ( isset( $checked ) && true == $checked ) ? true : false );
+				},
+			)
+		);
+		$wp_customize->add_setting(
+			'hide_special_thanks_attribution', array(
+				'default'           => false,
+				'type'              => 'theme_mod',
+				'sanitize_callback' => function( $checked ) {
+					return ( ( isset( $checked ) && true == $checked ) ? true : false );
+				},
+			)
+		);
 	}
 
 	/**
