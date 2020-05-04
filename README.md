@@ -2,6 +2,9 @@
 
 ## Changelog ##
 
+### 1.1.0 In progress ###
+* Add "Hide BoldGrid Attribution" control.
+
 ### 1.0.3 ###
 * Updated library dependency to ^2.0.0.
 

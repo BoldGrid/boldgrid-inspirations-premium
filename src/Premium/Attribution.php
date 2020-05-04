@@ -144,6 +144,16 @@ class Attribution {
 		}
 		if ( ! $this->getLicensed() ) {
 			unset( $controls['special_thanks_control'] );
+		} else {
+			/*
+			 * Add "Hide BoldGrid Attribution" control.
+			 *
+			 * @see Crio_Premium_Customizer::add_attribution_controls
+			 *
+			 * Once, this was a privilege only for Crio Pro. When Crio was added to Inspirations, this
+			 * control was made available to all "premium" users.
+			 */
+			remove_action( 'customize_controls_print_styles', [ 'Boldgrid_Framework_Customizer_Footer', 'customize_attribution' ], 999 );
 		}
 
 		return $controls;
