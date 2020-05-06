@@ -41,6 +41,29 @@ class Attribution {
 
 		add_action( 'customize_register', array( $this, 'addSettings' ) );
 
+		$this->controls = $this->setControls(
+			array(
+				'reseller_control' => array(
+					'type'      => 'checkbox',
+					'settings'  => 'hide_partner_attribution',
+					'transport' => 'refresh',
+					'label'     => __( 'Hide Partner Attribution', 'boldgrid-inspirations' ),
+					'section'   => 'boldgrid_footer_panel',
+					'default'   => false,
+					'priority'  => 50,
+				),
+				'special_thanks_control' => array(
+					'type'      => 'checkbox',
+					'settings'  => 'hide_special_thanks_attribution',
+					'transport' => 'refresh',
+					'label'     => __( 'Hide Special Thanks Link', 'boldgrid-inspirations' ),
+					'section'   => 'boldgrid_footer_panel',
+					'default'   => false,
+					'priority'  => 60,
+				),
+			)
+		);
+
 		Library\Filter::add( $this );
 	}
 
@@ -53,6 +76,17 @@ class Attribution {
 	 */
 	private function setLicensed( $licensed ) {
 		return $this->licensed = $licensed;
+	}
+
+	/**
+	 * Sets the controls array.
+	 *
+	 * @since 1.4.3
+	 *
+	 * @param array $controls Controls array.
+	 */
+	private function setControls( $controls ) {
+		return $this->controls = $controls;
 	}
 
 	/**
@@ -95,6 +129,45 @@ class Attribution {
 		}
 		return $configs;
 	}
+
+	/**
+	 * Adds attribution link controls to theme customizer.
+	 *
+	 * @hook kirki/fields
+	 *
+	 * @param array $controls [description]
+	 */
+	public function addControls( $controls ) {
+		global $boldgrid_theme_framework;
+		$bgtfw_version = $boldgrid_theme_framework->get_configs()['framework-version'];
+		$is_crio       = version_compare( $bgtfw_version, '2.0.0', 'ge' );
+
+		if ( $is_crio ) {
+			return $controls;
+		}
+
+		$controls = array_merge( $controls, $this->getControls() );
+
+		if ( ! get_option( 'boldgrid_reseller', false ) ) {
+			unset( $controls['reseller_control'] );
+		}
+		if ( ! $this->getLicensed() ) {
+			unset( $controls['special_thanks_control'] );
+		} else {
+			/*
+			 * Add "Hide BoldGrid Attribution" control.
+			 *
+			 * @see Crio_Premium_Customizer::add_attribution_controls
+			 *
+			 * Once, this was a privilege only for Crio Pro. When Crio was added to Inspirations, this
+			 * control was made available to all "premium" users.
+			 */
+			remove_action( 'customize_controls_print_styles', [ 'Boldgrid_Framework_Customizer_Footer', 'customize_attribution' ], 999 );
+		}
+
+		return $controls;
+	}
+
 
 	/**
 	 * Adds attribution settings
@@ -214,5 +287,14 @@ class Attribution {
 	 */
 	protected function getLicensed() {
 		return $this->licensed;
+	}
+
+	/**
+	 * Gets $controls class property.
+	 *
+	 * @return array $controls Controls array.
+	 */
+	protected function getControls() {
+		return $this->controls;
 	}
 }
