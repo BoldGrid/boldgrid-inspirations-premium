@@ -102,24 +102,29 @@ class Attribution {
 	 * @since SINCEVERSION
 	 */
 	public function addSettings( $wp_customize ) {
-		$wp_customize->add_setting(
-			'hide_partner_attribution', array(
-				'default'           => false,
-				'type'              => 'theme_mod',
-				'sanitize_callback' => function( $checked ) {
-					return ( ( isset( $checked ) && true == $checked ) ? true : false );
-				},
-			)
-		);
-		$wp_customize->add_setting(
-			'hide_special_thanks_attribution', array(
-				'default'           => false,
-				'type'              => 'theme_mod',
-				'sanitize_callback' => function( $checked ) {
-					return ( ( isset( $checked ) && true == $checked ) ? true : false );
-				},
-			)
-		);
+
+		if ( get_option( 'boldgrid_reseller', false ) ) {
+			$wp_customize->add_setting(
+				'hide_partner_attribution', array (
+					'default'           => false,
+					'type'              => 'theme_mod',
+					'sanitize_callback' => function( $checked ) {
+						return ( ( isset( $checked ) && true == $checked ) ? true : false );
+					},
+				)
+			);
+		}
+		if ( $this->getLicensed() ) {
+			$wp_customize->add_setting(
+				'hide_special_thanks_attribution', array (
+					'default'           => false,
+					'type'              => 'theme_mod',
+					'sanitize_callback' => function( $checked ) {
+						return ( ( isset( $checked ) && true == $checked ) ? true : false );
+					},
+				)
+			);
+		}
 	}
 
 	/**
