@@ -105,7 +105,8 @@ class Attribution {
 
 		if ( get_option( 'boldgrid_reseller', false ) ) {
 			$wp_customize->add_setting(
-				'hide_partner_attribution', array (
+				'hide_partner_attribution',
+				array(
 					'default'           => false,
 					'type'              => 'theme_mod',
 					'sanitize_callback' => function( $checked ) {
@@ -116,7 +117,8 @@ class Attribution {
 		}
 		if ( $this->getLicensed() ) {
 			$wp_customize->add_setting(
-				'hide_special_thanks_attribution', array (
+				'hide_special_thanks_attribution',
+				array(
 					'default'           => false,
 					'type'              => 'theme_mod',
 					'sanitize_callback' => function( $checked ) {
@@ -124,6 +126,8 @@ class Attribution {
 					},
 				)
 			);
+			// Allows removing Boldgrid Attribution Link.
+			remove_action( 'customize_controls_print_styles', [ 'Boldgrid_Framework_Customizer_Footer', 'customize_attribution' ], 999 );
 		}
 	}
 
