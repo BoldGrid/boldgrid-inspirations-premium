@@ -29,6 +29,14 @@ class Attribution {
 	protected $licensed;
 
 	/**
+	 * Controls.
+	 *
+	 * @since 1.4.3
+	 * @var array
+	 */
+	protected $controls;
+
+	/**
 	 * Initialize class and set properties.
 	 *
 	 * @since 1.4.3
