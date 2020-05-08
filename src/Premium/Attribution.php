@@ -26,9 +26,15 @@ class Attribution {
 	 * @var bool $licensed Licensed plugin?
 	 * @var array $controls Controls array.
 	 */
-	protected
-		$licensed,
-		$controls;
+	protected $licensed;
+
+	/**
+	 * Controls.
+	 *
+	 * @since 1.4.3
+	 * @var array
+	 */
+	protected $controls;
 
 	/**
 	 * Initialize class and set properties.
@@ -40,26 +46,29 @@ class Attribution {
 		$type = $license->getValid() && $license->isPremium( 'boldgrid-inspirations' );
 
 		$this->licensed = $this->setLicensed( $type );
+
+		add_action( 'customize_register', array( $this, 'addSettings' ) );
+
 		$this->controls = $this->setControls(
 			array(
 				'reseller_control' => array(
-					'type'        => 'checkbox',
-					'settings'     => 'hide_partner_attribution',
-					'transport'   => 'refresh',
-					'label'       => __( 'Hide Partner Attribution', 'boldgrid-inspirations' ),
-					'section'     => 'boldgrid_footer_panel',
-					'default'     => false,
-					'priority'    => 50,
+					'type'      => 'checkbox',
+					'settings'  => 'hide_partner_attribution',
+					'transport' => 'refresh',
+					'label'     => __( 'Hide Partner Attribution', 'boldgrid-inspirations' ),
+					'section'   => 'boldgrid_footer_panel',
+					'default'   => false,
+					'priority'  => 50,
 				),
 				'special_thanks_control' => array(
-					'type'        => 'checkbox',
-					'settings'     => 'hide_special_thanks_attribution',
-					'transport'   => 'refresh',
-					'label'       => __( 'Hide Special Thanks Link', 'boldgrid-inspirations' ),
-					'section'     => 'boldgrid_footer_panel',
-					'default'     => false,
-					'priority'    => 60,
-				)
+					'type'      => 'checkbox',
+					'settings'  => 'hide_special_thanks_attribution',
+					'transport' => 'refresh',
+					'label'     => __( 'Hide Special Thanks Link', 'boldgrid-inspirations' ),
+					'section'   => 'boldgrid_footer_panel',
+					'default'   => false,
+					'priority'  => 60,
+				),
 			)
 		);
 
@@ -137,6 +146,14 @@ class Attribution {
 	 * @param array $controls [description]
 	 */
 	public function addControls( $controls ) {
+		global $boldgrid_theme_framework;
+		$bgtfw_version = $boldgrid_theme_framework->get_configs()['framework-version'];
+		$is_crio       = version_compare( $bgtfw_version, '2.0.0', 'ge' );
+
+		if ( $is_crio ) {
+			return $controls;
+		}
+
 		$controls = array_merge( $controls, $this->getControls() );
 
 		if ( ! get_option( 'boldgrid_reseller', false ) ) {
@@ -157,6 +174,42 @@ class Attribution {
 		}
 
 		return $controls;
+	}
+
+
+	/**
+	 * Adds attribution settings
+	 *
+	 * @since SINCEVERSION
+	 */
+	public function addSettings( $wp_customize ) {
+
+		if ( get_option( 'boldgrid_reseller', false ) ) {
+			$wp_customize->add_setting(
+				'hide_partner_attribution',
+				array(
+					'default'           => false,
+					'type'              => 'theme_mod',
+					'sanitize_callback' => function( $checked ) {
+						return ( ( isset( $checked ) && true == $checked ) ? true : false );
+					},
+				)
+			);
+		}
+		if ( $this->getLicensed() ) {
+			$wp_customize->add_setting(
+				'hide_special_thanks_attribution',
+				array(
+					'default'           => false,
+					'type'              => 'theme_mod',
+					'sanitize_callback' => function( $checked ) {
+						return ( ( isset( $checked ) && true == $checked ) ? true : false );
+					},
+				)
+			);
+			// Allows removing Boldgrid Attribution Link.
+			remove_action( 'customize_controls_print_styles', [ 'Boldgrid_Framework_Customizer_Footer', 'customize_attribution' ], 999 );
+		}
 	}
 
 	/**
