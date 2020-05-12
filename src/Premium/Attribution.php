@@ -42,10 +42,7 @@ class Attribution {
 	 * @since 1.4.3
 	 */
 	public function __construct() {
-		$license = new Library\License;
-		$type = $license->getValid() && $license->isPremium( 'boldgrid-inspirations' );
-
-		$this->licensed = $this->setLicensed( $type );
+		$this->setLicensed();
 
 		add_action( 'customize_register', array( $this, 'addSettings' ) );
 
@@ -83,14 +80,25 @@ class Attribution {
 	}
 
 	/**
-	 * Sets the licensed property
+	 * Sets the licensed property.
+	 *
+	 * This property specifies whether or not the appropriate license is had to show controls for toggling
+	 * Attribution.
 	 *
 	 * @since 1.4.3
-	 *
-	 * @param bool $licensed Licensed plugin?
 	 */
-	private function setLicensed( $licensed ) {
-		return $this->licensed = $licensed;
+	private function setLicensed() {
+		$license = new Library\License;
+
+		/*
+		 * Originally only boldgrid-inspirations, several different license types may now toggle
+		 * Attribution controls.
+		 */
+		$this->licensed = $license->getValid() && (
+			$license->isPremium( 'boldgrid-inspirations' ) ||
+			$license->isPremium( 'crio' ) ||
+			$license->isPremium( 'post-and-page-builder' )
+		);
 	}
 
 	/**
