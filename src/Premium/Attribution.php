@@ -73,6 +73,13 @@ class Attribution {
 		);
 
 		Library\Filter::add( $this );
+
+		// If we have a premium license, add appropriate hooks to handle "Built with BoldGrid".
+		if ( $this->licensed ) {
+			include_once dirname( __FILE__ ) . '/BoldgridAttribution.php';
+			$boldgridAttribution = new Boldgrid_Attribution();
+			$boldgridAttribution->addHooks();
+		}
 	}
 
 	/**
@@ -161,16 +168,6 @@ class Attribution {
 		}
 		if ( ! $this->getLicensed() ) {
 			unset( $controls['special_thanks_control'] );
-		} else {
-			/*
-			 * Add "Hide BoldGrid Attribution" control.
-			 *
-			 * @see Crio_Premium_Customizer::add_attribution_controls
-			 *
-			 * Once, this was a privilege only for Crio Pro. When Crio was added to Inspirations, this
-			 * control was made available to all "premium" users.
-			 */
-			remove_action( 'customize_controls_print_styles', [ 'Boldgrid_Framework_Customizer_Footer', 'customize_attribution' ], 999 );
 		}
 
 		return $controls;
@@ -207,8 +204,6 @@ class Attribution {
 					},
 				)
 			);
-			// Allows removing Boldgrid Attribution Link.
-			remove_action( 'customize_controls_print_styles', [ 'Boldgrid_Framework_Customizer_Footer', 'customize_attribution' ], 999 );
 		}
 	}
 
