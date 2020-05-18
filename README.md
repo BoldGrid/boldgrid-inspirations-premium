@@ -2,8 +2,10 @@
 
 ## Changelog ##
 
-### 1.1.0 In progress ###
+### 1.1.0 ###
 * Add "Hide BoldGrid Attribution" control.
+* Update: Additional licenses can now hide attribution.
+* Bug fix: Fix attribution controls between v1 and v2 themes.
 
 ### 1.0.3 ###
 * Updated library dependency to ^2.0.0.
