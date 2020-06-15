@@ -162,6 +162,12 @@ class Attribution {
 	 */
 	public function addControls( $controls ) {
 		global $boldgrid_theme_framework;
+
+		// Don't assume we're running a BoldGrid theme.
+		if ( empty( $boldgrid_theme_framework ) ) {
+			return $controls;
+		}
+
 		$bgtfw_version = $boldgrid_theme_framework->get_configs()['framework-version'];
 		$is_crio       = version_compare( $bgtfw_version, '2.0.0', 'ge' );
 
