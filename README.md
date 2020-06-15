@@ -2,6 +2,9 @@
 
 ## Changelog ##
 
+### 1.1.1 ###
+* Bug fix: Prevent fatals on non BoldGrid themes.
+
 ### 1.1.0 ###
 * Add "Hide BoldGrid Attribution" control.
 * Update: Additional licenses can now hide attribution.
