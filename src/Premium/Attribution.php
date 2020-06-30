@@ -184,6 +184,18 @@ class Attribution {
 			unset( $controls['special_thanks_control'] );
 		}
 
+		if ( $this->getLicensed() ) {
+			$controls['hide_boldgrid_attribution'] = array(
+				'type'      => 'checkbox',
+				'settings'  => 'hide_boldgrid_attribution',
+				'transport' => 'refresh',
+				'label'     => __( 'Hide BoldGrid Attribution', 'bgtfw' ),
+				'section'   => 'boldgrid_footer_panel',
+				'default'   => false,
+				'priority'  => 30,
+			);
+		}
+
 		return $controls;
 	}
 
