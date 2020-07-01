@@ -2,6 +2,9 @@
 
 ## Changelog ##
 
+### 1.1.2 ###
+* Bug Fix: Remove "Hide Boldgrid Attribution" control from free v1 themes.
+
 ### 1.1.1 ###
 * Bug fix: Prevent fatals on non BoldGrid themes.
 
