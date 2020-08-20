@@ -29,6 +29,8 @@ class Boldgrid_Attribution {
 
 		// @see Crio_Premium::define_customizer_hooks()
 		add_action( 'customize_save_after', array( $this, 'saveSetting' ), 998 );
+
+		add_action( 'customize_controls_enqueue_scripts', array( $this, 'enqueue_script' ), 998 );
 	}
 
 	/**
@@ -57,5 +59,27 @@ class Boldgrid_Attribution {
 	 */
 	public function showControl() {
 		remove_action( 'customize_controls_print_styles', array( 'Boldgrid_Framework_Customizer_Footer', 'customize_attribution' ), 999 );
+	}
+
+	/**
+	 * Enqueue JavaScript
+	 *
+	 * Even though the control has been removed for hiding boldgrid attribution, the 'trash' icon to remove the entire
+	 * attribution section was still there. This had to be removed using JS, and therefore has to be re-added the same way.
+	 *
+	 * @since SINCEVERSION
+	 */
+	public function enqueue_script() {
+		global $wp_version;
+		wp_enqueue_script(
+			'inspirations-premium-boldgrid-attribution',
+			plugin_dir_url( __FILE__ ) . 'BoldgridAttribution.js',
+			array(
+				'jquery',
+				'customize-controls'
+			),
+			$wp_version,
+			true
+		);
 	}
 }
