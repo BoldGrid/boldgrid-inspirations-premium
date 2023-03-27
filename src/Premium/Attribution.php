@@ -265,7 +265,7 @@ class Attribution {
 	 */
 	public function addAttribution( $link ) {
 		$attribution_data = get_option( 'boldgrid_attribution' );
-		$attribution_page = get_page_by_title( 'Attribution' );
+		$attribution_page = \Boldgrid_Inspirations_Utility::get_page_by_title( 'Attribution' );
 		$special_thanks = __( 'Special Thanks', 'bgtfw' );
 
 		// If option is available use that or try to find the page by slug name.

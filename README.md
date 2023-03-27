@@ -2,6 +2,9 @@
 
 ## Changelog ##
 
+### 1.1.2 ###
+* Bug fix: Use internal get_page_by_title method since WP 6.2 deprecated the function.
+
 ### 1.1.1 ###
 * Bug fix: Prevent fatals on non BoldGrid themes.
 
