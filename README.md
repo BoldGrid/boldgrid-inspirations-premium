@@ -2,6 +2,9 @@
 
 ## Changelog ##
 
+### 1.1.3 ###
+* Update: Fix PHP 8.2 Deprecation notices by updated Boldgrid/Library.
+
 ### 1.1.2 ###
 * Bug fix: Use internal get_page_by_title method since WP 6.2 deprecated the function.
 
