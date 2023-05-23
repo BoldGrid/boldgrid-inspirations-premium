@@ -29,7 +29,13 @@
             "Boldgrid\\Inspirations\\Premium\\": "src/Premium"
         }
     },
+    "repositories": [
+        {
+            "type": "git",
+            "url": "https://github.com/boldgrid/library"
+        }
+    ],
     "require": {
-        "boldgrid/library": "^2.0.0"
+        "boldgrid/library": "dev-php8.2-fixes"
     }
 }
