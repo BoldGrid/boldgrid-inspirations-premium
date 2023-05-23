@@ -1,27 +1,27 @@
 {
     "_readme": [
         "This file locks the dependencies of your project to a known state",
-        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "f420caf1f3ed536baae0728499079902",
+    "content-hash": "521e0c765f06fba019a990556ab02d40",
     "packages": [
         {
             "name": "boldgrid/library",
-            "version": "dev-dev",
+            "version": "2.13.11",
             "source": {
                 "type": "git",
                 "url": "https://github.com/BoldGrid/library.git",
-                "reference": "ab85752d51a3baf3d5a519381f85ed2a6a392b11"
+                "reference": "ec1da4d4a6029968407b8f04c61417af4f5e4487"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/BoldGrid/library/zipball/ab85752d51a3baf3d5a519381f85ed2a6a392b11",
-                "reference": "ab85752d51a3baf3d5a519381f85ed2a6a392b11",
+                "url": "https://api.github.com/repos/BoldGrid/library/zipball/ec1da4d4a6029968407b8f04c61417af4f5e4487",
+                "reference": "ec1da4d4a6029968407b8f04c61417af4f5e4487",
                 "shasum": ""
             },
-            "require": {
-                "timelsass/wp-php-version-check": "^1.0.0"
+            "require-dev": {
+                "yoast/phpunit-polyfills": "^1.0"
             },
             "type": "library",
             "autoload": {
@@ -31,7 +31,7 @@
             },
             "notification-url": "https://packagist.org/downloads/",
             "license": [
-                "GPL2.0"
+                "GPL-2.0-or-later"
             ],
             "authors": [
                 {
@@ -46,7 +46,9 @@
                     "role": "Developer"
                 },
                 {
-                    "name": "Joe",
+                    "name": "Joe Cartonia",
+                    "email": "joec@boldgrid.com",
+                    "homepage": "https://twitter.com/joemotocss",
                     "role": "Developer"
                 },
                 {
@@ -55,47 +57,16 @@
                 }
             ],
             "description": "The BoldGrid Library for shared code used in official BoldGrid plugins and themes.",
-            "time": "2017-05-30 21:10:04"
-        },
-        {
-            "name": "timelsass/wp-php-version-check",
-            "version": "1.1.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/timelsass/wp-php-version-check.git",
-                "reference": "072c97eec9e4b35db04aee8818bd35636da6c33f"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/timelsass/wp-php-version-check/zipball/072c97eec9e4b35db04aee8818bd35636da6c33f",
-                "reference": "072c97eec9e4b35db04aee8818bd35636da6c33f",
-                "shasum": ""
-            },
-            "type": "library",
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "GPL2.0"
-            ],
-            "authors": [
-                {
-                    "name": "Tim Elsass",
-                    "email": "dev@tim.ph",
-                    "homepage": "http://tim.ph",
-                    "role": "Developer"
-                }
-            ],
-            "description": "Composer package to verify that WordPress and PHP versions satisfy a minimum version requirement.",
-            "time": "2017-05-03T22:51:07+00:00"
+            "time": "2023-05-23T20:04:34+00:00"
         }
     ],
     "packages-dev": [],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": {
-        "boldgrid/library": 20
-    },
+    "stability-flags": [],
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": [],
-    "platform-dev": []
+    "platform-dev": [],
+    "plugin-api-version": "1.1.0"
 }
